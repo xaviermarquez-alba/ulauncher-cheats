@@ -1,0 +1,44 @@
+{
+    "manifest_version": "2",
+    "api_version": "1",
+    "name": "Cheat Sheets Manager",
+    "description": "Provides quick access to your Cheat sheets in multiple formats with quick preview thanks to Hawkeye",
+    "developer_name": "Bruno Paz",
+    "icon": "images/icon.png",
+    "options": {
+        "query_debounce": 0.1
+    },
+    "preferences": [{
+            "id": "demo_kw",
+            "type": "keyword",
+            "name": "Cheats",
+            "description": "Cheats extension",
+            "default_value": "cheats"
+        },
+        {
+            "id": "cheats_dir",
+            "type": "input",
+            "name": "Cheats Dir",
+            "description": "The directory to look for cheat sheets",
+            "default_value": ""
+        },
+        {
+            "id": "hawkeye_bin",
+            "type": "input",
+            "name": "Hawkeye path",
+            "description": "Path to hawkeye binary to be able to preview files",
+            "default_value": "/usr/local/bin/hawkeye"
+        },
+        {
+            "id": "use_hawkeye_as_default_action",
+            "type": "select",
+            "options": [
+                {"value": "false", "text": "No"}, 
+                {"value": "true", "text": "Yes"}
+            ],
+            "name": "Use Hawkeye as default action",
+            "description": "If true, pressing the \"Enter\" key on a result will open in Hawkeye by default, instead of need to press ALT+Enter",
+            "default_value": false
+        }
+    ]
+}
