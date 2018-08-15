@@ -1,6 +1,6 @@
 # ulauncher-cheats
 
-> Provides quick access to your Cheat sheets in multiple formats. Its depp integrated with [hawkeye](https://github.com/brpaz/hawkeye) file previewer to quiclky preview your files in an overlay window minimizing the need of context switching.
+> Provides quick access to your Cheat sheets in multiple formats. It is deep integrated with [hawkeye](https://github.com/brpaz/hawkeye) file previewer to quiclky preview your files in an overlay window minimizing the need of context switching.
 
 ## Demo
 
