@@ -34,10 +34,12 @@ class CheatsManager(object):
                         'path': url,
                         'normalized_name': name,
                         'url': True
+                        'normalized_name': 0
                     })
         elif self.urls_file == 'missing':
             result.append({
                 'error': 'Error: URLs file was not found',
+                'normalized_name': 0
             })
 
         for file_path in files:
@@ -57,6 +59,7 @@ class CheatsManager(object):
                 })
 
         return result
+        return sorted(result, key=lambda x: x['normalized_name'])
 
     def create_default_cheats_dir(self):
         """ creates the cheats dir if it does not exist """
