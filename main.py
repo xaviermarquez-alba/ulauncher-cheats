@@ -50,7 +50,13 @@ class CheatsExtension(Extension):
                                                  name=cheat['error'],
                                                  on_enter=HideWindowAction()))
             else:
-                uri = cheat['path'] if 'url' in cheat else 'file://%s' % cheat['path']
+                if 'url' in cheat:
+                    uri = cheat['path']
+                    icon = 'images/url.png'
+                else:
+                    uri = 'file://%s' % cheat['path']
+                    icon = 'images/icon.png'
+                
                 open_file_action = OpenAction(cheat['path'])
                 open_in_hawkeye_action = RunScriptAction('%s --uri="%s"' % (hawkeye_bin, uri), [])
 
@@ -61,7 +67,7 @@ class CheatsExtension(Extension):
                     primary_action = open_file_action
                     secondary_action = open_in_hawkeye_action
 
-                items.append(ExtensionResultItem(icon='images/icon.png',
+                items.append(ExtensionResultItem(icon=icon,
                                                  name=cheat['normalized_name'],
                                                  on_enter=primary_action,
                                                  on_alt_enter=secondary_action))
