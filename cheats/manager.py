@@ -25,15 +25,14 @@ class CheatsManager(object):
                 try:
                     for line in f.readlines():
                         name, url = line.split()
+                        result.append({
+                            'path': url,
+                            'normalized_name': name,
+                            'url': True
+                        })
                 except ValueError:
                     result.append({
                         'error': 'Error: Incorrect URLs file formatting',
-                    })
-                else:
-                    result.append({
-                        'path': url,
-                        'normalized_name': name,
-                        'url': True
                         'normalized_name': 0
                     })
         elif self.urls_file == 'missing':
@@ -58,7 +57,6 @@ class CheatsManager(object):
                     'normalized_name': filename_without_ext
                 })
 
-        return result
         return sorted(result, key=lambda x: x['normalized_name'])
 
     def create_default_cheats_dir(self):
