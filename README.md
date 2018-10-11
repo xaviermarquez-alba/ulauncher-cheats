@@ -10,6 +10,7 @@
 
 * [ulauncher](https://ulauncher.io/)
 * Python >= 2.7
+* python-glob2 (pip install glob2)
 
 ## Install
 
