@@ -26,6 +26,9 @@ make link
 
 To see your changes, stop ulauncher and run it from the command line with: ```ulauncher -v```.
 
+## Credits
+Icons (partly) by [webalys](https://www.iconfinder.com/webalys)
+
 ## License
 
 MIT
