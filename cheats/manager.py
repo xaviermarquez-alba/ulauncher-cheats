@@ -24,10 +24,10 @@ class CheatsManager(object):
             with open(self.urls_file) as f:
                 try:
                     for line in f.readlines():
-                        name, url = line.split()
+                        name, url = line.split('|', 1)
                         result.append({
-                            'path': url,
-                            'normalized_name': name,
+                            'path': url.strip(),
+                            'normalized_name': name.strip(),
                             'url': True
                         })
                 except ValueError:
