@@ -27,8 +27,7 @@ class CheatsManager(object):
                         name, url = line.split()
                 except ValueError:
                     result.append({
-                        'path': '',
-                        'normalized_name': '!!! URLs files formatting error !!!'
+                        'error': 'Error: Incorrect URLs file formatting',
                     })
                 else:
                     result.append({
@@ -36,6 +35,10 @@ class CheatsManager(object):
                         'normalized_name': name,
                         'url': True
                     })
+        elif self.urls_file == 'missing':
+            result.append({
+                'error': 'Error: URLs file was not found',
+            })
 
         for file_path in files:
             if file_path != self.urls_file:
@@ -71,9 +74,11 @@ class CheatsManager(object):
 
     def set_urls_file(self, path):
         """ Sets the urls file path, if file exists """
-        if os.path.exists(path):
+        if not path:
+            self.urls_file = ''
+        elif os.path.exists(path):
             self.urls_file = path
         elif os.path.exists(os.path.join(self.cheats_dir, path)):
             self.urls_file = os.path.join(self.cheats_dir, path)
         else:
-            self.urls_file = ''
+            self.urls_file = 'missing'

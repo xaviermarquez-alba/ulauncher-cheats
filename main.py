@@ -45,22 +45,26 @@ class CheatsExtension(Extension):
 
         items = []
         for cheat in cheats[:8]:
-
-            uri = cheat['path'] if 'url' in cheat else 'file://%s' % cheat['path']
-            open_file_action = OpenAction(cheat['path'])
-            open_in_hawkeye_action = RunScriptAction('%s --uri="%s"' % (hawkeye_bin, uri), [])
-
-            if use_hawkeye_default:
-                primary_action = open_in_hawkeye_action
-                secondary_action = open_file_action
+            if 'error' in cheat:
+                items.append(ExtensionResultItem(icon='images/error.png',
+                                                 name=cheat['error'],
+                                                 on_enter=HideWindowAction()))
             else:
-                primary_action = open_file_action
-                secondary_action = open_in_hawkeye_action
+                uri = cheat['path'] if 'url' in cheat else 'file://%s' % cheat['path']
+                open_file_action = OpenAction(cheat['path'])
+                open_in_hawkeye_action = RunScriptAction('%s --uri="%s"' % (hawkeye_bin, uri), [])
 
-            items.append(ExtensionResultItem(icon='images/icon.png',
-                                             name=cheat['normalized_name'],
-                                             on_enter=primary_action,
-                                             on_alt_enter=secondary_action))
+                if use_hawkeye_default:
+                    primary_action = open_in_hawkeye_action
+                    secondary_action = open_file_action
+                else:
+                    primary_action = open_file_action
+                    secondary_action = open_in_hawkeye_action
+
+                items.append(ExtensionResultItem(icon='images/icon.png',
+                                                 name=cheat['normalized_name'],
+                                                 on_enter=primary_action,
+                                                 on_alt_enter=secondary_action))
 
         return RenderResultListAction(items)
 
