@@ -46,8 +46,9 @@ class CheatsExtension(Extension):
         items = []
         for cheat in cheats[:8]:
 
+            uri = cheat['path'] if 'url' in cheat else 'file://%s' % cheat['path']
             open_file_action = OpenAction(cheat['path'])
-            open_in_hawkeye_action = RunScriptAction('%s --uri="file://%s"' % (hawkeye_bin, cheat['path']), [])
+            open_in_hawkeye_action = RunScriptAction('%s --uri="%s"' % (hawkeye_bin, uri), [])
 
             if use_hawkeye_default:
                 primary_action = open_in_hawkeye_action
@@ -87,6 +88,7 @@ class PreferencesEventListener(EventListener):
             extension.cheats_manager.set_cheats_dir(event.preferences['cheats_dir'])
         else:
             extension.cheats_manager.set_cheats_dir(extension.get_default_cheats_dir())
+        extension.cheats_manager.set_urls_file(event.preferences['urls_file'])
 
 class PreferencesUpdateEventListener(EventListener):
     """
@@ -100,6 +102,8 @@ class PreferencesUpdateEventListener(EventListener):
                 extension.cheats_manager.set_cheats_dir(event.new_value)
             else:
                 extension.cheats_manager.set_cheats_dir(extension.get_default_cheats_dir())
+        elif event.id == 'urls_file':
+            extension.cheats_manager.set_urls_file(event.new_value)
 
 if __name__ == '__main__':
     CheatsExtension().run()

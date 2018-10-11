@@ -23,6 +23,13 @@
             "default_value": ""
         },
         {
+            "id": "urls_file",
+            "type": "input",
+            "name": "URLs file",
+            "description": "Defaults to files stored in Cheats dir",
+            "default_value": "urls"
+        },
+        {
             "id": "hawkeye_bin",
             "type": "input",
             "name": "Hawkeye path",
@@ -33,7 +40,7 @@
             "id": "use_hawkeye_as_default_action",
             "type": "select",
             "options": [
-                {"value": "false", "text": "No"}, 
+                {"value": "false", "text": "No"},
                 {"value": "true", "text": "Yes"}
             ],
             "name": "Use Hawkeye as default action",
