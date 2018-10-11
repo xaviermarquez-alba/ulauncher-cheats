@@ -25,6 +25,9 @@ class CheatsManager(object):
                 try:
                     for line in f.readlines():
                         name, url = line.split('|', 1)
+                        if query and query.lower() not in name.lower():
+                            continue
+
                         result.append({
                             'path': url.strip(),
                             'normalized_name': name.strip(),
