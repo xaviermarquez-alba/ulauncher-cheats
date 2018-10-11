@@ -18,6 +18,10 @@ Open ulauncher preferences window -> extensions -> add extension and paste the f
 
 ```https://github.com/brpaz/ulauncher-cheats```
 
+## Configuration
+* Any file that is placed inside cheats dir (path configurable) will appear in the extension.
+* Optionally, a URLs file can be created to show a list of URLs as well (check out examples folder).
+
 ## Development
 
 ```
