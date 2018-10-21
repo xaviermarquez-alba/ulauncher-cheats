@@ -45,21 +45,32 @@ class CheatsExtension(Extension):
 
         items = []
         for cheat in cheats[:8]:
-
-            open_file_action = OpenAction(cheat['path'])
-            open_in_hawkeye_action = RunScriptAction('%s --uri="file://%s"' % (hawkeye_bin, cheat['path']), [])
-
-            if use_hawkeye_default:
-                primary_action = open_in_hawkeye_action
-                secondary_action = open_file_action
+            if 'error' in cheat:
+                items.append(ExtensionResultItem(icon='images/error.png',
+                                                 name=cheat['error'],
+                                                 on_enter=HideWindowAction()))
             else:
-                primary_action = open_file_action
-                secondary_action = open_in_hawkeye_action
+                if 'url' in cheat:
+                    uri = cheat['path']
+                    icon = 'images/url.png'
+                else:
+                    uri = 'file://%s' % cheat['path']
+                    icon = 'images/icon.png'
+                
+                open_file_action = OpenAction(cheat['path'])
+                open_in_hawkeye_action = RunScriptAction('%s --uri="%s"' % (hawkeye_bin, uri), [])
 
-            items.append(ExtensionResultItem(icon='images/icon.png',
-                                             name=cheat['normalized_name'],
-                                             on_enter=primary_action,
-                                             on_alt_enter=secondary_action))
+                if use_hawkeye_default:
+                    primary_action = open_in_hawkeye_action
+                    secondary_action = open_file_action
+                else:
+                    primary_action = open_file_action
+                    secondary_action = open_in_hawkeye_action
+
+                items.append(ExtensionResultItem(icon=icon,
+                                                 name=cheat['normalized_name'],
+                                                 on_enter=primary_action,
+                                                 on_alt_enter=secondary_action))
 
         return RenderResultListAction(items)
 
@@ -87,6 +98,7 @@ class PreferencesEventListener(EventListener):
             extension.cheats_manager.set_cheats_dir(event.preferences['cheats_dir'])
         else:
             extension.cheats_manager.set_cheats_dir(extension.get_default_cheats_dir())
+        extension.cheats_manager.set_urls_file(event.preferences['urls_file'])
 
 class PreferencesUpdateEventListener(EventListener):
     """
@@ -100,6 +112,8 @@ class PreferencesUpdateEventListener(EventListener):
                 extension.cheats_manager.set_cheats_dir(event.new_value)
             else:
                 extension.cheats_manager.set_cheats_dir(extension.get_default_cheats_dir())
+        elif event.id == 'urls_file':
+            extension.cheats_manager.set_urls_file(event.new_value)
 
 if __name__ == '__main__':
     CheatsExtension().run()
